@@ -86,6 +86,8 @@ class CarDeleteView(LoginRequiredMixin, generic.DeleteView):
 @login_required
 def assign_to_car(request: HttpRequest, pk) -> HttpResponse:
     car = get_object_or_404(Car, pk=pk)
+    if not isinstance(car, Car):
+        return redirect("taxi:index")
     car.drivers.add(request.user)
     return redirect("taxi:car-detail", pk=pk)
 
@@ -93,6 +95,8 @@ def assign_to_car(request: HttpRequest, pk) -> HttpResponse:
 @login_required
 def remove_from_car(request: HttpRequest, pk) -> HttpResponse:
     car = get_object_or_404(Car, pk=pk)
+    if not isinstance(car, Car):
+        return redirect("taxi:index")
     car.drivers.remove(request.user)
     return redirect("taxi:car-detail", pk=pk)
 

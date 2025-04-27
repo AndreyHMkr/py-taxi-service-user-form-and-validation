@@ -26,8 +26,9 @@ class BaseDriverForm(forms.ModelForm):
 
 class CarForm(forms.ModelForm):
     drivers = forms.ModelMultipleChoiceField(
-        queryset=get_user_model().objects.all(),
+        queryset=Driver.objects.all(),
         widget=forms.CheckboxSelectMultiple,
+        required=False,
     )
 
     class Meta:
@@ -36,11 +37,6 @@ class CarForm(forms.ModelForm):
 
 
 class DriverForm(BaseDriverForm):
-    drivers = forms.ModelMultipleChoiceField(
-        queryset=get_user_model().objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-    )
 
     class Meta:
         model = Driver
